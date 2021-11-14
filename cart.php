@@ -19,7 +19,7 @@
 							</tr>
 							<tr>
 								<td>Product Title</td>
-								<td><img src="images/new-pic3.jpg" alt=""/></td>
+								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
 								<td>Tk. 20000</td>
 								<td>
 									<form action="" method="post">
@@ -33,7 +33,7 @@
 							
 							<tr>
 								<td>Product Title</td>
-								<td><img src="images/new-pic3.jpg" alt=""/></td>
+								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
 								<td>Tk. 20000</td>
 								<td>
 									<form action="" method="post">
@@ -47,7 +47,7 @@
 							
 							<tr>
 								<td>Product Title</td>
-								<td><img src="images/new-pic3.jpg" alt=""/></td>
+								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
 								<td>Tk. 20000</td>
 								<td>
 									<form action="" method="post">
@@ -60,7 +60,7 @@
 							</tr>
 							<tr>
 								<td>Product Title</td>
-								<td><img src="images/new-pic3.jpg" alt=""/></td>
+								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
 								<td>Tk. 20000</td>
 								<td>
 									<form action="" method="post">
@@ -74,7 +74,7 @@
 							
 							<tr>
 								<td>Product Title</td>
-								<td><img src="images/new-pic3.jpg" alt=""/></td>
+								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
 								<td>Tk. 20000</td>
 								<td>
 									<form action="" method="post">

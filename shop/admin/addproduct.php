@@ -1,9 +1,26 @@
-﻿<?php include 'inc/header.php';?>
-<?php include 'inc/sidebar.php';?>
+﻿<?php include 'inc/header.php';
+    include 'inc/sidebar.php';
+    // include '../../classes/Category.php';
+    // include '../../classes/Brand.php';
+    include '../../classes/Product.php';
+?>
+
+
+<?php
+    $pd = new Product();
+	if ($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['submit'])){
+		$insertProduct = $pd->insertProduct($_POST, $_FILES);
+	}
+?>
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Add New Product</h2>
-        <div class="block">               
+        <div class="block">           
+        <?php
+            if (isset($insertProduct)){
+                echo $insertProduct;
+            } 
+        ?>       
          <form action="" method="post" enctype="multipart/form-data">
             <table class="form">
                
@@ -12,7 +29,7 @@
                         <label>Name</label>
                     </td>
                     <td>
-                        <input type="text" placeholder="Enter Product Name..." class="medium" />
+                        <input type="text" name="productName" placeholder="Enter Product Name..." class="medium" />
                     </td>
                 </tr>
 				<tr>
@@ -20,7 +37,7 @@
                         <label>Category</label>
                     </td>
                     <td>
-                        <select id="select" name="select">
+                        <select id="select" name="category">
                             <option>Select Category</option>
                             <option value="1">Category One</option>
                             <option value="2">Category Two</option>
@@ -33,7 +50,7 @@
                         <label>Brand</label>
                     </td>
                     <td>
-                        <select id="select" name="select">
+                        <select id="select" name="brand">
                             <option>Select Brand</option>
                             <option value="1">Brand One</option>
                             <option value="2">Brand Two</option>
@@ -47,7 +64,9 @@
                         <label>Description</label>
                     </td>
                     <td>
-                        <textarea class="tinymce"></textarea>
+                        <textarea class="tinymce" name="product_desc">
+
+                        </textarea>
                     </td>
                 </tr>
 				<tr>
@@ -55,7 +74,7 @@
                         <label>Price</label>
                     </td>
                     <td>
-                        <input type="text" placeholder="Enter Price..." class="medium" />
+                        <input type="text" placeholder="Enter Price..." class="medium" name="price"/>
                     </td>
                 </tr>
             
@@ -64,7 +83,7 @@
                         <label>Upload Image</label>
                     </td>
                     <td>
-                        <input type="file" />
+                        <input type="file" name="image" accept="jpg/*, jpeg/*, png/*, gif/*" />
                     </td>
                 </tr>
 				
@@ -73,7 +92,7 @@
                         <label>Product Type</label>
                     </td>
                     <td>
-                        <select id="select" name="select">
+                        <select id="select" name="type">
                             <option>Select Type</option>
                             <option value="1">Featured</option>
                             <option value="2">Non-Featured</option>

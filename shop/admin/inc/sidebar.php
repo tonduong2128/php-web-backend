@@ -10,7 +10,19 @@
                         
                     </ul>
                 </li>
-				
+                <li><a class="menuitem">Product</a>
+                    <ul class="submenu">
+                        <li><a href="addproduct.php">Add Product</a> </li>
+                        <li><a href="productlist.php">Product List</a> </li>
+                    </ul>
+                </li>
+				<li><a class="menuitem">Product brands</a>
+                    <ul class="submenu">
+                        <li><a href="brandadd.php">Add brand</a></li>
+                        <li><a href="brandlist.php">List brands</a></li>                        
+                    </ul>
+                </li>
+                
                  <li><a class="menuitem">Update Pages</a>
                     <ul class="submenu">
                         <li><a>About Us</a></li>
@@ -27,12 +39,6 @@
                     <ul class="submenu">
                         <li><a href="addcat.php">Add Category</a> </li>
                         <li><a href="catlist.php">Category List</a> </li>
-                    </ul>
-                </li>
-                <li><a class="menuitem">Product Option</a>
-                    <ul class="submenu">
-                        <li><a href="addproduct.php">Add Product</a> </li>
-                        <li><a href="productlist.php">Product List</a> </li>
                     </ul>
                 </li>
             </ul>

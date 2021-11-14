@@ -24,7 +24,6 @@
 
             $adminUser = mysqli_real_escape_string($this->db->link, $adminUser);
             $adminPass = mysqli_real_escape_string($this->db->link, $adminPass);
-
             if (empty($adminUser)||empty($adminPass)){
                 $alert = "User and pass must be not empty";
                 return $alert;

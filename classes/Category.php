@@ -43,5 +43,32 @@
         public function loginDestroy(){
             
         }
+
+        public function showCategory(){
+            $query = "SELECT * FROM tbl_category order by catId desc ";
+            $result=$this->db->select($query);
+            return $result;
+        }
+        public function getCategoryById($catId){
+            $query = "SELECT * FROM tbl_category WHERE catId='$catId' LIMIT 1";
+            $result=$this->db->select($query);
+            return $result;
+        }
+        public function updateCategoryWithId($catId,$catName){
+            $catIdNum= (int)$catId;
+            $query = "UPDATE tbl_category SET catName = '$catName' WHERE catId = $catIdNum";
+            $result = $this->db->update($query);
+            return $result;
+        }
+        public function deleteCategoryById($id){
+            $id = (int)$id;
+            $query = "DELETE FROM tbl_category WHERE catId = $id";
+            $result = $this->db->delete($query);
+            if ($result) {
+                return "<p class='success'>Delete Category success</p>";
+            } else{
+                return "<p class='error'> Category id not match</p>";
+            }
+        }
     }
 ?>
