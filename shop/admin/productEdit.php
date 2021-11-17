@@ -1,4 +1,4 @@
-﻿<?php include 'inc/header.php';
+<?php include 'inc/header.php';
     include 'inc/sidebar.php';
     include '../../classes/Category.php';
     include '../../classes/Brand.php';
@@ -7,29 +7,39 @@
 
 
 <?php
+    if ($_SERVER["REQUEST_METHOD"]==="POST"){
+        $pd = new Product();
+        $productId = $_REQUEST["productId"];
+        $resultUp = $pd->updateProductWithId($productId, $_POST);
+        echo "<script> window.location = 'productlist.php'</script>";
+    } 
+
+    $productId = $_REQUEST["productId"];
     $pd = new Product();
-	if ($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['submit'])){
-		$insertProduct = $pd->insertProduct($_POST, $_FILES);
-	}
+    $result = $pd->getProductById($productId);
+    if (!$result){
+        echo "<script> window.location = 'productlist.php' </script>";
+    } else{
+        $data2 = $result->fetch_assoc();
+    }
 ?>
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Add New Product</h2>
         <div class="block">           
         <?php
-            if (isset($insertProduct)){
-                echo $insertProduct;
+            if (isset($resultUp)){
+                echo $resultUp;
             } 
         ?>       
-         <form action="" method="post" enctype="multipart/form-data"> <!--enctype="multipart/form-data" thêm hình ảnh bắt buộc phải có-->
-            <table class="form">
-               
+         <form action="?productId=<?php echo $productId?>" method="post" enctype="multipart/form-data"> <!--enctype="multipart/form-data" thêm hình ảnh bắt buộc phải có-->
+            <table class="form">               
                 <tr>
                     <td>
                         <label>Name</label>
                     </td>
                     <td>
-                        <input type="text" name="productName" placeholder="Enter Product Name..." class="medium" />
+                        <input type="text" value="<?php echo $data2["productName"];?>" name="productName" placeholder="Enter Product Name..." class="medium" />
                     </td>
                 </tr>
 				<tr>
@@ -37,13 +47,24 @@
                         <label>Category</label>
                     </td>
                     <td>
-                        <select id="select" name="category">
-                            <option>Select Category</option>
+                        <select id="select" name="category"  >
                             <?php
                                 $cat = new Category();
+                                $result = $cat->getCategoryById($data2["catId"]);
+                                $data = $result->fetch_assoc();
+                            ?>
+                            <option 
+                                selected 
+                                value="<?php echo $data2["catId"];?>"
+                            >
+                                <?php echo $data["catName"] ?>
+                            </option>
+                            <?php
                                 $result = $cat->showCategory();
                                 while($data = $result->fetch_assoc()){
+                                    if ($data["catId"] === $data2["catId"]) {continue;};
                             ?>
+
                                 <option value="<?php echo $data["catId"] ?>"><?php echo $data["catName"] ?></option>
                             <?php          
                             }
@@ -56,12 +77,20 @@
                         <label>Brand</label>
                     </td>
                     <td>
-                        <select id="select" name="brand">
-                            <option>Select Brand</option>
+                       
+                        <select id="select" name="brand" >
                             <?php
                                 $brand = new Brand();
+                                $result = $brand->getBrandById($data2["brandId"]);
+                                $data = $result->fetch_assoc();
+                            ?>
+                            <option selected value="<?php echo $data2["brandId"];?>">
+                                <?php echo $data["brandName"] ?>
+                            </option>
+                            <?php
                                 $result = $brand->showBrand();
                                 while($data = $result->fetch_assoc()){
+                                    if ($data["brandId"] === $data2["brandId"]) {continue;};
                             ?>
                                 <option value="<?php echo $data["brandId"] ?>"><?php echo $data["brandName"] ?></option>
                             <?php          
@@ -76,7 +105,9 @@
                         <label>Description</label>
                     </td>
                     <td>
-                        <textarea class="tinymce" name="product_desc"></textarea>
+                        <textarea class="tinymce" name="product_desc">
+                            <?php echo $data2["product_desc"]; ?>
+                        </textarea>
                     </td>
                 </tr>
 				<tr>
@@ -84,7 +115,7 @@
                         <label>Price</label>
                     </td>
                     <td>
-                        <input type="text" placeholder="Enter Price..." class="medium" name="price"/>
+                        <input value="<?php echo $data2["price"];?>" type="text" placeholder="Enter Price..." class="medium" name="price"/>
                     </td>
                 </tr>
             
@@ -93,19 +124,30 @@
                         <label>Upload Image</label>
                     </td>
                     <td>
-                        <input type="file" name="image" accept="jpg/*, jpeg/*, png/*, gif/*" />
+                        <input value="uploads/<?php echo $data2["image"]?>" type="file"  name="image" accept="jpg/*, jpeg/*, png/*, gif/*" />
                     </td>
                 </tr>
 				
 				<tr>
                     <td>
-                        <label>Product Type</label>
+                        <label >Product Type</label>
                     </td>
                     <td>
                         <select id="select" name="type">
-                            <option>Select Type</option>
-                            <option value="1">Featured</option>
-                            <option value="2">Non-Featured</option>
+                            <option
+                                <?php 
+                                    if ($data2["type"]==="1") {
+                                        echo "selected";
+                                    }
+                                ?>
+                                value="1">Featured</option>
+                            <option 
+                                <?php 
+                                    if ($data2["type"]==="2") {
+                                        echo "selected";
+                                    } 
+                                ?>
+                                value="2">Non-Featured</option>
                         </select>
                     </td>
                 </tr>
@@ -121,6 +163,9 @@
         </div>
     </div>
 </div>
+
+<?php    
+?>
 <!-- Load TinyMCE -->
 <script src="js/tiny-mce/jquery.tinymce.js" type="text/javascript"></script>
 <script type="text/javascript">

@@ -101,8 +101,5 @@ html[xmlns] .slides {display: block;}
 @media screen and (max-width: 320px) {
 .flex-control-nav {left: 5.5em;}
 .flexslider1 ol.flex-control-nav {bottom: 1px;left: 6em;}
-
-
 }
 
-}

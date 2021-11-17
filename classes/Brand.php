@@ -1,6 +1,6 @@
 <?php
-    include '../../lib/database.php';
-    include '../../helpers/format.php'
+    include_once  '../../lib/database.php';
+    include_once  '../../helpers/format.php'
 ?>
 
 
@@ -36,13 +36,6 @@
                 }
             }
         }
-        public function loginCheck(){
-            
-        }
-        public function loginDestroy(){
-            
-        }
-
         public function showBrand(){
             $query = "SELECT * FROM tbl_brand order by brandId desc ";
             $result=$this->db->select($query);

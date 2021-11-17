@@ -1,6 +1,6 @@
 <?php
-    include '../../lib/database.php';
-    include '../../helpers/format.php';
+    include_once '../../lib/database.php';
+    include_once '../../helpers/format.php';
 ?>
 
 
@@ -33,7 +33,7 @@
 
             $div = explode('.',$file_name);
             $file_ext = strtolower(end($div));
-            $unique_image = substr(md5(time()) , 0, 10).'.'.$file_ext;
+            $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
             $uploaded_image="uploads/".$unique_image;
 
             if ($productName == "" || $brand == ""|| $category == "" || $product_desc == ""|| $price == ""|| $type == "" || $file_name=="") {
@@ -43,7 +43,7 @@
                 // upload hình ảnh vào folder uploads
                 move_uploaded_file($file_temp,$uploaded_image);
                 $query = "INSERT INTO tbl_product(productName, brandId, catId, product_desc, price, type, image) 
-                    VALUES('$productName','$brand','$category','$product_desc','$price','$type',' $unique_image')";
+                    VALUES('$productName','$brand','$category','$product_desc','$price','$type','$unique_image')";
                 $result=$this->db->insert($query);
                 if ($result){
                     $alert = "<span class='success'>Insert product Successfully</span>";
@@ -62,31 +62,40 @@
             
         // }
 
-        // public function showCategory(){
-        //     $query = "SELECT * FROM tbl_category order by catId desc ";
-        //     $result=$this->db->select($query);
-        //     return $result;
-        // }
-        // public function getCategoryById($catId){
-        //     $query = "SELECT * FROM tbl_category WHERE catId='$catId' LIMIT 1";
-        //     $result=$this->db->select($query);
-        //     return $result;
-        // }
-        // public function updateCategoryWithId($catId,$catName){
-        //     $catIdNum= (int)$catId;
-        //     $query = "UPDATE tbl_category SET catName = '$catName' WHERE catId = $catIdNum";
-        //     $result = $this->db->update($query);
-        //     return $result;
-        // }
-        // public function deleteCategoryById($id){
-        //     $id = (int)$id;
-        //     $query = "DELETE FROM tbl_category WHERE catId = $id";
-        //     $result = $this->db->delete($query);
-        //     if ($result) {
-        //         return "<p class='success'>Delete Category success</p>";
-        //     } else{
-        //         return "<p class='error'> Category id not match</p>";
-        //     }
-        // }
+        public function showProduct(){
+            $query = "SELECT * FROM tbl_product order by productId desc ";
+            $result=$this->db->select($query);
+            return $result;
+        }
+        public function getProductById($productId){
+            $query = "SELECT * FROM tbl_product WHERE productId='$productId' LIMIT 1";
+            $result=$this->db->select($query);
+            return $result;
+        }
+        public function updateProductWithId($productId,$data){
+            $productIdNum= (int)$productId;
+            $query = "UPDATE tbl_product SET productName='".$data['productName'].
+            "', catId='".$data['category']."', brandId='".$data['brand']."',
+            product_desc='".$data['product_desc']."',
+            type='".$data['type']."',
+            price='".$data['price']."'
+              WHERE productId = '".$productIdNum."'";
+            $result = $this->db->update($query);    
+            if ($result) {
+                return "<p class='success'>Update product success</p>";
+            } else{
+                return "<p class='error'> Product id not match </p>";
+            }
+        }
+        public function deleteProductById($id){
+            $id = (int)$id;
+            $query = "DELETE FROM tbl_product WHERE productId = $id";
+            $result = $this->db->delete($query);
+            if ($result) {
+                return "<p class='success'>Delete product success</p>";
+            } else{
+                return "<p class='error'> Product id not match </p>";
+            }
+        }
     }
 ?>
