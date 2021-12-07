@@ -1,13 +1,36 @@
 <?php
-	include './inc/header.php';
-	include './inc/slider.php';
+	include_once './inc/header.php';
+	include_once './inc/slider.php';
 ?>
-
+<?php
+	if (isset($_GET["cartDelId"]) && $_GET["cartDelId"] != null){
+		$cartDelId = $_GET["cartDelId"];
+		$deleteCart = $cart->deleteCartById($cartDelId);
+	}
+	if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["quantity"]) && isset($_GET["productId"])){
+		$quantity = $_POST["quantity"];
+		$productId = $_GET["productId"];
+		$updateQuantity = $cart->updateQuantityById($productId, $quantity);
+		if (!$updateQuantity){
+			header('Location: cart.php');
+		} else{
+		}
+	}
+?>
+<?php
+	if(!isset($_GET["id"])){
+		echo "<meta http-equiv='refresh' content='0;URL=?id=live'>";
+	}
+?>
  <div class="main">
     <div class="content">
     	<div class="cartoption">		
 			<div class="cartpage">
 			    	<h2>Your Cart</h2>
+					<?php 
+						if (isset($updateQuantity)){echo $updateQuantity;}
+						if (isset($deleteCart)){echo $deleteCart;}
+					?>
 						<table class="tblone">
 							<tr>
 								<th width="20%">Product Name</th>
@@ -17,88 +40,50 @@
 								<th width="20%">Total Price</th>
 								<th width="10%">Action</th>
 							</tr>
-							<tr>
-								<td>Product Title</td>
-								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
-								<td>Tk. 20000</td>
-								<td>
-									<form action="" method="post">
-										<input type="number" name="" value="1"/>
-										<input type="submit" name="submit" value="Update"/>
-									</form>
-								</td>
-								<td>Tk. 40000</td>
-								<td><a href="">X</a></td>
-							</tr>
+							<?php
+								$myCarts = $cart->showCart();
+								$totalPrice = 0;
+								if ($myCarts){
+									while ($result = $myCarts->fetch_assoc()){
+										$totalPrice += ((int)$result["price"])*((int)$result["quantity"]);
+										?>
+										<tr>
+											<td><?php echo $result["productName"]?></td>
+											<td><img  src="./shop/admin/uploads/<?php echo $result["image"];?>" alt=""/></td>
+											<td><?php echo $result["price"]." VND"?></td>
+											<td>
+												<form action="?productId=<?php echo $result["productId"]; ?>" method="post">
+													<input type="number" min="1" name="quantity" value="<?php echo $result["quantity"];?>"/>
+													<input type="submit" name="submit" value="Update"/>
+												</form>
+											</td>
+											<td><?php echo ((int)$result["price"])*((int)$result["quantity"])." VND"?></td>
+											<td><a href="?cartDelId=<?php echo$result["cartId"];?>" onclick ='return confirm("You want to delete")'> X</a></td>
+										</tr>
+										<?php
+									}
+								}
+							?>
 							
-							<tr>
-								<td>Product Title</td>
-								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
-								<td>Tk. 20000</td>
-								<td>
-									<form action="" method="post">
-										<input type="number" name="" value="1"/>
-										<input type="submit" name="submit" value="Update"/>
-									</form>
-								</td>
-								<td>Tk. 40000</td>
-								<td><a href="">X</a></td>
-							</tr>
 							
-							<tr>
-								<td>Product Title</td>
-								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
-								<td>Tk. 20000</td>
-								<td>
-									<form action="" method="post">
-										<input type="number" name="" value="1"/>
-										<input type="submit" name="submit" value="Update"/>
-									</form>
-								</td>
-								<td>Tk. 40000</td>
-								<td><a href="">X</a></td>
-							</tr>
-							<tr>
-								<td>Product Title</td>
-								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
-								<td>Tk. 20000</td>
-								<td>
-									<form action="" method="post">
-										<input type="number" name="" value="1"/>
-										<input type="submit" name="submit" value="Update"/>
-									</form>
-								</td>
-								<td>Tk. 40000</td>
-								<td><a href="">X</a></td>
-							</tr>
-							
-							<tr>
-								<td>Product Title</td>
-								<td><img src="./shop/images/new-pic3.jpg" alt=""/></td>
-								<td>Tk. 20000</td>
-								<td>
-									<form action="" method="post">
-										<input type="number" name="" value="1"/>
-										<input type="submit" name="submit" value="Update"/>
-									</form>
-								</td>
-								<td>Tk. 40000</td>
-								<td><a href="">X</a></td>
-							</tr>
 							
 						</table>
 						<table style="float:right;text-align:left;" width="40%">
 							<tr>
 								<th>Sub Total : </th>
-								<td>TK. 210000</td>
+								<td>
+									<?php echo ($totalPrice)." VND";
+										Session::set("sum", $totalPrice);
+									?>
+								</td>
 							</tr>
 							<tr>
 								<th>VAT : </th>
-								<td>TK. 31500</td>
+								<td>10%</td>
 							</tr>
 							<tr>
 								<th>Grand Total :</th>
-								<td>TK. 241500 </td>
+								<td><?php echo ($totalPrice*1.1)." VND"?></td>
 							</tr>
 					   </table>
 					</div>

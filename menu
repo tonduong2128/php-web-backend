@@ -5,4 +5,22 @@ Bài 11 : Lập trình Website PHP mô hình MVC - Tạo thương hiệu sản p
 Bài 12 : Lập trình Website PHP mô hình MVC - Tạo thương hiệu sản phẩm#2
 Bài 13 : Lập trình Website PHP mô hình MVC - Tạo thương hiệu sản phẩm#3
 Bài 14 : Lập trình Website PHP mô hình MVC - Tạo sản phẩm#1
-
+Bài 20 : Lập trình Website PHP mô hình MVC
+    spl_autoload_register(function($className){
+		include_once "classes/".$className."php";
+	})
+    include tất cả các class trong path tương ứng
+Bài 21 : Lập trình Website PHP mô hình MVC - Hiển thị sản phẩm index page
+    $filePath=realpath(dirname(__FILE__)); sử dụng đường đẫn động để include vào nếu một file được sử dụng nhiều nơi
+Bài 22 : Lập trình Website PHP mô hình MVC  
+Bài 23 : Lập trình Website PHP mô hình MVC  
+    session_id()
+    hàm có sẵn trên php 
+24: Lập trình Website PHP mô hình MVC
+25: Lập trình Website PHP mô hình MVC
+26 :Lập trình Website PHP mô hình MVC
+27 :Lập trình Website PHP mô hình MVC - Cập nhật giỏ hàng#2
+28 :Lập trình Website PHP mô hình MVC - Cập nhật giỏ hàng#3
+29 :Lập trình Website PHP mô hình MVC - Cập nhật giỏ hàng#4
+    echo "<meta http-equiv='refresh' content='0;URL=?id=live'>";
+    hàm refresh //update lại mọi thứ

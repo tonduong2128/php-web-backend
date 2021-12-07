@@ -7,13 +7,13 @@ class Format{
     return date('F j, Y, g:i a', strtotime($date));
  }
 
- public function textShorten($text, $limit = 400){
-    $text = $text." ";
-    $text = substr($text, 0, $limit);
-    $text = substr($text, 0, strrpos($text,' '));
-    $text = substr_replace($text,"...",strlen($text)-4,0);
-    return $text;
- }
+public function textShorten($text, $limit = 400){
+   $text = $text." ";
+   $text = substr($text, 0, $limit);
+   $text = substr($text, 0, strrpos($text,' '));
+   $text = substr_replace($text,"...",strlen($text),0);
+   return $text; 
+}
 
  public function validation($data){
     $data = trim($data);

@@ -1,3 +1,27 @@
+<?php
+ 	include_once './lib/session.php';
+	Session::init();
+	include_once './lib/database.php';
+	include_once './helpers/format.php';
+?>
+<?php
+	spl_autoload_register(function($className){
+		include_once "./classes/".$className.".php";
+	});
+	$database = new Database();
+	$format = new Format();
+	$cart = new Cart();
+	$user = new User();
+	$product = new Product();
+	$category = new Category();
+	$brand = new Brand();
+?>
+<?php
+  	header("Cache-Control: no-cache, must-revalidate");
+  	header("Pragma: no-cache"); 
+  	header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); 
+  	header("Cache-Control: max-age=2592000");
+?>
 <!DOCTYPE HTML>
 <head>
 <title>Store Website</title>
@@ -36,13 +60,16 @@
 					<div class="cart">
 						<a href="#" title="View my shopping cart" rel="nofollow">
 								<span class="cart_title">Cart</span>
-								<span class="no_product">(empty)</span>
+								<span class="no_product">
+									<?php
+										echo (string)(Session::get("sum")*1.1)." VND";
+									?>
+								</span>
 							</a>
 						</div>
 			      </div>
 		   <div class="login">
 				<?php
-					include './lib/session.php';
 					if (isset($_GET['action']) && $_GET['action']=='logout'){
 						Session::destroy();
 					}

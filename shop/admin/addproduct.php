@@ -38,7 +38,7 @@
                     </td>
                     <td>
                         <select id="select" name="category">
-                            <option>Select Category</option>
+                            <option selected hidden value="">Select Category</option>
                             <?php
                                 $cat = new Category();
                                 $result = $cat->showCategory();
@@ -57,7 +57,7 @@
                     </td>
                     <td>
                         <select id="select" name="brand">
-                            <option>Select Brand</option>
+                            <option selected hidden value="">Select Brand</option>
                             <?php
                                 $brand = new Brand();
                                 $result = $brand->showBrand();
@@ -103,7 +103,7 @@
                     </td>
                     <td>
                         <select id="select" name="type">
-                            <option>Select Type</option>
+                            <option selected hidden value="">Select Type</option>
                             <option value="1">Featured</option>
                             <option value="2">Non-Featured</option>
                         </select>

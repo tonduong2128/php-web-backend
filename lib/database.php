@@ -1,5 +1,6 @@
 <?php
-  include '../../config/config.php'
+  $filePath=realpath(dirname(__FILE__));
+  include $filePath.'/../config/config.php';
 ?>
 
 <?php

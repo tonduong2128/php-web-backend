@@ -1,36 +1,73 @@
 <?php
 	include './inc/header.php';
-	include './inc/slider.php';
+	// include './inc/slider.php';
 ?>
 
  <div class="main">
     <div class="content">
+		<?php
+			if (isset($_GET["productId"])){
+				$productId = $_GET["productId"];
+				$pro = $product->getProductById($productId);
+
+				if ($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['submit'])){
+					$quantity=$_POST["quantity"];
+					$addToCart = $cart->addToCart($productId, $quantity);
+				}
+
+				if ($pro){
+					while ($result = $pro->fetch_assoc()){
+		?>
     	<div class="section group">
-				<div class="cont-desc span_1_of_2">				
-					<div class="grid images_3_of_2">
-						<img src="./shop/images/preview-img.jpg" alt="" />
-					</div>
-				<div class="desc span_3_of_2">
-					<h2>Lorem Ipsum is simply dummy text </h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>					
-					<div class="price">
-						<p>Price: <span>$500</span></p>
-						<p>Category: <span>Laptop</span></p>
-						<p>Brand:<span>Samsnumg</span></p>
-					</div>
-				<div class="add-cart">
-					<form action="cart.php" method="post">
-						<input type="number" class="buyfield" name="" value="1"/>
-						<input type="submit" class="buysubmit" name="submit" value="Buy Now"/>
-					</form>				
-				</div>
-			</div>
-			<div class="product-desc">
+						<div class="cont-desc span_1_of_2">				
+							<div class="grid images_3_of_2">
+								<img style="object-fit: cover; width:230px; height:230px;" src="./shop/admin/uploads/<?php echo $result["image"];?>" alt="" />
+							</div>
+						<div class="desc span_3_of_2">
+							<h2><?php echo $result["productName"]; ?></h2>
+							<p><?php echo $format->textShorten($result["product_desc"],150) ;?></p>					
+							<div class="price">
+								<p>Price: <span><?php echo $result["price"]." VND" ; ?></span></p>
+								<p>Category: <span>
+									<?php
+										$cat = $category->getCategoryById($result["catId"]);
+										if ($category){
+											while ($nameCat = $cat->fetch_assoc()){
+												echo $nameCat["catName"];
+											}
+										}
+									?>
+								</span></p>
+								<p>Brand:<span>
+									<?php
+										$bra = $brand->getBrandById($result["brandId"]);
+										if ($bra){
+											while ($nameBrand = $bra->fetch_assoc()){
+												echo $nameBrand["brandName"];
+											}
+										}
+									?>
+								</span></p>
+							</div>
+						<div class="add-cart">
+							<form action="" method="post">
+								<input type="number" class="buyfield" name="quantity" value="1" min="1"/>
+								<input type="submit" class="buysubmit" name="submit" value="Buy Now"/>
+							</form>				
+						</div>
+		</div>
+		<div class="product-desc">
 			<h2>Product Details</h2>
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-	        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+			<p><?php echo $result["product_desc"];?></p>
 	    </div>
-				
+		<?php }
+				} else{
+					echo "<script> window.location = '404.php'</script>";
+				}
+			} else{
+				header("Location:cart.php");
+			}
+		?>		
 	</div>
 				<div class="rightsidebar span_3_of_1">
 					<h2>CATEGORIES</h2>

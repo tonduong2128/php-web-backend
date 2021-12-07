@@ -49,7 +49,7 @@
 						<td><?php echo $i; ?></td>
 						<td><?php echo $data["productName"] ?></td>
 						<td><?php echo $data["price"] ?></td>
-						<td ><img width="80" style="display: inline-block; vertical-align:middle; padding:10px 0;" src= "uploads/<?php echo $data["image"]?>"/></td>
+						<td ><img height="80" style="display: inline-block; vertical-align:middle; padding:10px 0;" src= "uploads/<?php echo $data["image"]?>"/></td>
 						<td>
 							<?php 
 								$cat = new Category();

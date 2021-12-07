@@ -10,17 +10,19 @@
     if ($_SERVER["REQUEST_METHOD"]==="POST"){
         $pd = new Product();
         $productId = $_REQUEST["productId"];
-        $resultUp = $pd->updateProductWithId($productId, $_POST);
-        echo "<script> window.location = 'productlist.php'</script>";
+        $resultUp = $pd->updateProductWithId($productId, $_POST, $_FILES);
     } 
-
-    $productId = $_REQUEST["productId"];
-    $pd = new Product();
-    $result = $pd->getProductById($productId);
-    if (!$result){
-        echo "<script> window.location = 'productlist.php' </script>";
+    if (isset($_GET["productId"]) || $_GET["productId"] !=null ){
+        $productId = $_REQUEST["productId"];
+        $pd = new Product();
+        $result = $pd->getProductById($productId);
+        if (!$result){
+            echo "<script> window.location = 'productlist.php' </script>";
+        } else{
+            $data2 = $result->fetch_assoc();
+        }
     } else{
-        $data2 = $result->fetch_assoc();
+        echo "<script>window.location = 'productlist.php'</script>";
     }
 ?>
 <div class="grid_10">
@@ -124,7 +126,11 @@
                         <label>Upload Image</label>
                     </td>
                     <td>
-                        <input value="uploads/<?php echo $data2["image"]?>" type="file"  name="image" accept="jpg/*, jpeg/*, png/*, gif/*" />
+                        <div>
+                            <img src="uploads/<?php echo $data2["image"]?>" alt="photo product" height="80">
+                        </div>
+                        <input hidden name = "nameImage" value="<?php echo $data2["image"]?>" >
+                        <input type="file"  accept="jpg/*, jpeg/*, png/*, gif/*" name="image" />
                     </td>
                 </tr>
 				
