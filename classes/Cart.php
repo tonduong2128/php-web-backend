@@ -70,5 +70,11 @@
                 return "<p class='sussess' style='font-size:20px; color: red;'>Delete cart product not sussesful</p>";
             }    
         }
+        public function delAllCart(){
+            $sessionId = session_id();
+            $query = "DELETE FROM `tbl_cart` WHERE `sessionId`='$sessionId' ;";
+            $result = $this->db->delete($query);
+            return $result;
+        }
     }
 ?>

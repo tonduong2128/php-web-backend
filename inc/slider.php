@@ -9,7 +9,9 @@
 				?>
 					<div class="listview_1_of_2 images_1_of_2">
 						<div class="listimg listimg_2_of_1">
-							 <a href="details.php?productId=<?php echo$result["productId"];?>"> <img src="shop/admin/uploads/<?php echo $result['image'];?>" alt="" /></a>
+							<a href="details.php?productId=<?php echo$result["productId"];?>"> 
+								<img src="shop/admin/uploads/<?php echo $result['image'];?>" alt="" style="object-fit: cover;" />
+							</a>
 						</div>
 						<div class="text list_2_of_1">
 							<h2>Dell</h2>
@@ -29,7 +31,9 @@
 				?>
 					<div class="listview_1_of_2 images_1_of_2">
 						<div class="listimg listimg_2_of_1">
-							 <a href="details.php?productId=<?php echo$result["productId"];?>"> <img src="shop/admin/uploads/<?php echo $result['image'];?>" alt="" /></a>
+							<a href="details.php?productId=<?php echo$result["productId"];?>"> 
+								<img src="shop/admin/uploads/<?php echo $result['image'];?>" alt="" style="object-fit: cover;"/>
+							</a>
 						</div>
 						<div class="text list_2_of_1">
 							<h2>Sam Sung</h2>
@@ -51,7 +55,9 @@
 				?>
 					<div class="listview_1_of_2 images_1_of_2">
 						<div class="listimg listimg_2_of_1">
-							 <a href="details.php?productId=<?php echo$result["productId"];?>"> <img src="shop/admin/uploads/<?php echo $result['image'];?>" alt="" /></a>
+							<a href="details.php?productId=<?php echo$result["productId"];?>"> 
+								<img src="shop/admin/uploads/<?php echo $result['image'];?>" alt="" style="object-fit: cover;"/>
+							</a>
 						</div>
 						<div class="text list_2_of_1">
 							<h2>Apple</h2>
@@ -71,7 +77,9 @@
 				?>
 					<div class="listview_1_of_2 images_1_of_2">
 						<div class="listimg listimg_2_of_1">
-							 <a href="details.php?productId=<?php echo$result["productId"];?>"> <img src="shop/admin/uploads/<?php echo $result['image'];?>" alt="" /></a>
+							<a href="details.php?productId=<?php echo$result["productId"];?>">
+							 	<img src="shop/admin/uploads/<?php echo $result['image'];?>" alt="" style="object-fit: cover;"/>
+							</a>
 						</div>
 						<div class="text list_2_of_1">
 							<h2>Oppo</h2>

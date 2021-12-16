@@ -3,7 +3,6 @@
 	include_once './inc/slider.php';
 ?>
 <?php
-	echo session_id();
 ?>
 
  <div class="main">

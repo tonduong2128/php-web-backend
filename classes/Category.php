@@ -38,13 +38,6 @@
                 }
             }
         }
-        public function loginCheck(){
-            
-        }
-        public function loginDestroy(){
-            
-        }
-
         public function showCategory(){
             $query = "SELECT * FROM tbl_category order by catId desc ";
             $result=$this->db->select($query);
@@ -70,6 +63,11 @@
             } else{
                 return "<p class='error'> Category id not match</p>";
             }
+        }
+        public function getProductByCatId($catId){
+            $query = "SELECT * FROM tbl_product WHERE catId='$catId' LIMIT 8";
+            $result=$this->db->select($query);
+            return $result;
         }
     }
 ?>

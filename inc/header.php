@@ -15,6 +15,7 @@
 	$product = new Product();
 	$category = new Category();
 	$brand = new Brand();
+	$customer = new Customer();
 ?>
 <?php
   	header("Cache-Control: no-cache, must-revalidate");
@@ -58,7 +59,7 @@
 			    </div>
 			    <div class="shopping_cart">
 					<div class="cart">
-						<a href="#" title="View my shopping cart" rel="nofollow">
+						<a href="cart.php" title="View my shopping cart" rel="nofollow">
 								<span class="cart_title">Cart</span>
 								<span class="no_product">
 									<?php
@@ -73,8 +74,19 @@
 					if (isset($_GET['action']) && $_GET['action']=='logout'){
 						Session::destroy();
 					}
+					if (isset($_GET['customerId'])){
+						$delCart = $cart->delAllCart();
+						Session::destroy();
+					}
 				?>
-		   		<a href="login.php?action=logout">Login</a>
+				<?php
+					$login_check = Session::get('customer_login');
+					if ($login_check){
+						echo "<a href='?customerId=".Session::get("customer_id")."'>Logout</a>";
+					} else{
+						echo "<a href='login.php'>Login</a>";
+					}
+				?>
 			</div>
 		 <div class="clear"></div>
 	 </div>
@@ -86,6 +98,14 @@
 	  <li><a href="products.php">Products</a> </li>
 	  <li><a href="topbrands.php">Top Brands</a></li>
 	  <li><a href="cart.php">Cart</a></li>
+	  <?php
+	  	$login_check = Session::get('customer_login');
+	 	if ($login_check){
+		?>
+			<li><a href="profile.php">Profile</a> </li>
+		<?php		 
+		 } 
+	  ?>
 	  <li><a href="contact.php">Contact</a> </li>
 	  <div class="clear"></div>
 	</ul>

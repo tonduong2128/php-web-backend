@@ -62,6 +62,8 @@
 										</tr>
 										<?php
 									}
+								} else{
+									echo "Cart is empty";
 								}
 							?>
 							
@@ -101,5 +103,5 @@
  </div>
  
  <?php
-	include './inc/footer.php';
+	include_once './inc/footer.php';
  ?>
