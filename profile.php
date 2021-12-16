@@ -76,7 +76,7 @@
                     background-color:rgba(0,0,0,0.2);
                 }
             </style>
-            <div style="float:right">
+            <div style="text-align:right">
                 <div >
                     <a
                         class="btn-profile"
