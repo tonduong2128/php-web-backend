@@ -9,8 +9,8 @@
 		include_once "./classes/".$className.".php";
 	});
 	$database = new Database();
-	$format = new Format();
 	$cart = new Cart();
+	$format = new Format();
 	$user = new User();
 	$product = new Product();
 	$category = new Category();
@@ -106,6 +106,15 @@
 		<?php		 
 		 } 
 	  ?>
+	   	<?php
+			$customerId = Session::get("customer_id");
+			$order_check = $cart->orderCheck($customerId);
+	 	if ($order_check){
+		?>
+			<li><a href="orderDetail.php">Ordered</a> </li>
+		<?php		 
+		 } 
+	  	?>
 	  <li><a href="contact.php">Contact</a> </li>
 	  <div class="clear"></div>
 	</ul>

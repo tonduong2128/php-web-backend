@@ -8,6 +8,10 @@
     } else{
         header("Location:login.php");
     } 
+    $checkCart = $cart->checkCart();
+    if (!$checkCart){
+        header("Location:cart.php");
+    }
 ?>
 <style>
     .chose-method{

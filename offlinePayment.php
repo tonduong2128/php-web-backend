@@ -4,18 +4,18 @@
 ?>
 
 <?php
-//     if (isset($_GET["productId"])){
-//         $productId = $_GET["productId"];
-//         $pro = $product->getProductById($productId);
+    if (isset($_GET["orderId"]) && $_GET["orderId"]=!NULL){
+        $customerId = Session::get("customer_id");
+        $insertOrder = $cart->insertOrder($customerId);
+        if ($insertOrder){
+            $destroyCart = $cart->delAllCart();
+            header('Location:success.php');
+        } else{
+            header('Location:cart.php');
+        }
 
-//         if ($_SERVER["REQUEST_METHOD"]==="POST" && isset($_POST['submit'])){
-//             $quantity=$_POST["quantity"];
-//             $addToCart = $cart->addToCart($productId, $quantity);
-//         }
-
-//         if ($pro){
-//             while ($result = $pro->fetch_assoc()){}}}
-// ?>
+    }
+?>
 <style>
     .box_left{
         width:50%;
@@ -173,8 +173,8 @@
                 </table>
                 </div>
             </div>
-            <div style="text-align:center;">
-                <input class="btn-profile" style="margin: 10px 0; font-size:26px;" type="submit" value="Order now" name="order">
+            <div style="text-align:center; margin-top:30px;" >
+                <a href="?orderId=order" class="btn-profile" style="top: 40px; font-size:26px;" >Order now</a>
             </div>
          </div>
     </div>

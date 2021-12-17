@@ -76,5 +76,52 @@
             $result = $this->db->delete($query);
             return $result;
         }
+        public function checkCart(){
+            $sessionId = session_id();
+            $query="SELECT* FROM tbl_cart WHERE sessionId='$sessionId'";
+            $result = $this->db->select($query);
+            if ($result){
+                return true;
+            }
+            return false;
+        }
+        public function orderCheck($customerId){
+            $query="SELECT* FROM tbl_order WHERE customerId='$customerId'";
+            $result = $this->db->select($query);
+            if ($result){
+                return true;
+            }
+            return false;
+        }
+        public function insertOrder($customerId){
+            $sessionId = session_id();
+            $query="SELECT* FROM tbl_cart WHERE sessionId='$sessionId'";
+            $getProduct = $this->db->select($query);
+            if ($getProduct){
+                while ($result = $getProduct->fetch_assoc()){
+                    $productId = $result['productId'];
+                    $productName = $result['productName'];
+                    $quantity = $result['quantity'];
+                    $price = $result['price']*$quantity;
+                    $image = $result['image'];
+                    $customerId = $customerId;
+                    $query_oder = "INSERT INTO tbl_order(productId, productName, quantity, price, image, customerId) 
+                    VALUES ($productId, '$productName', $quantity, '$price', '$image', $customerId)";
+                    $resultInsert = $this->db->insert($query_oder);
+                }
+                return $resultInsert;
+            }
+            return false;
+        }
+        public function getAmountPrice($customerId){
+            $query = "SELECT price FROM tbl_order WHERE customerId='$customerId'";
+            $getPrice = $this->db->select($query);
+            return $getPrice;
+        }
+        public function getCartOrder($customerId){
+            $query = "SELECT * FROM tbl_order WHERE customerId='$customerId'";
+            $result = $this->db->select($query);
+            return $result;
+        }
     }
 ?>
