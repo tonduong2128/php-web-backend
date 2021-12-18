@@ -123,5 +123,14 @@
             $result = $this->db->select($query);
             return $result;
         }
+
+
+
+        //admin
+        public function getInboxCart(){
+            $query = "SELECT* FROM tbl_order";
+            $result = $this->db->select($query);
+            return $result;
+        } 
     }
 ?>

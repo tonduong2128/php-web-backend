@@ -1,58 +1,61 @@
 ﻿<?php include 'inc/header.php';?>
 <?php include 'inc/sidebar.php';?>
+<?php
+	$filePath = realpath(dirname(__FILE__));
+	include_once $filePath.'/../../classes/cart.php';
+?>
         <div class="grid_10">
             <div class="box round first grid">
                 <h2>Inbox</h2>
                 <div class="block">        
-                    <table class="data display datatable" id="example">
+                <table class="data display datatable" id="example">
 					<thead>
 						<tr>
-							<th>Serial No.</th>
-							<th>Message</th>
+							<th>ID</th>
+							<th>Order time</th>
+							<th>Product</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th>Address</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="odd gradeX">
-							<td>01</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>02</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>03</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>04</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
+						<?php
+							$cart = new Cart();
+							$getInboxCart = $cart->getInboxCart();
+							if ($getInboxCart){
+								$index = 0;
+								while ($result= $getInboxCart->fetch_assoc()){
+						?>
 							<tr class="odd gradeX">
-							<td>05</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>06</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>07</td>
-							<td>Internet</td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
-						<tr class="even gradeC">
-							<td>08</td>
-							<td>Explorer </td>
-							<td><a href="">Edit</a> || <a href="">Delete</a></td>
-						</tr>
+								<td><?php echo ++$index?></td>
+								<td><?php echo $result['date'];?></td>
+								<td><?php echo $result['productName'];?></td>
+								<td><?php echo $result['quantity'];?></td>
+								<td><?php echo $result['price'];?></td>
+								<td><a href="customer.php?customerId=<?php echo $result['customerId'];?>">View customer</a></td>
+								<td>
+									<?php
+										if ($result['status']==0)
+										{
+									?>
+										<a href="?shiftId=<?php echo $result["id"];?>&price=<?php echo $result["price"];?>
+										time=<?php echo $result['date'];?>">Pending</a>
+									<?php
+										} else{
+									?>
+										<a href="?shiftId=<?php echo $result["id"];?>&price=<?php echo $result["price"];?>
+										time=<?php echo $result['date'];?>">Romove</a>
+									<?php		
+										}
+									?>
+								</td>
+							</tr>
+						<?php			
+								} 
+							}
+						?>
 					</tbody>
 				</table>
                </div>
