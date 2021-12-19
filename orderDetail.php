@@ -25,6 +25,13 @@
     if (!isset($isLogined)){
         header("Location:login.php");
     }
+    if (!isset($_GET['confirmId']) || $_GET['confirmId'] == NULL){
+    } else {
+        $confirmId = $_GET["confirmId"];
+        $time = $_GET["time"];
+        $price = $_GET["price"];
+        $delShifted = $cart->shiftedConfirm($confirmId, $time, $price);
+	}
 ?>
 <form action="" method="Post">
     <div class="main">
@@ -65,23 +72,31 @@
                                         <td><?php echo $format->formatDate($result['date']);?></td>
                                         <td>
                                             <?php 
-                                                if ($result['status']){
-                                                    echo "Processed";
-                                                } else{
+                                                if ($result['status']==0){
                                                     echo "Pending";
+                                                }elseif($result['status']==1){
+                                                     echo "<span>Shifted</span>";
+                                                } else{
+                                                    echo "Received";
                                                 }
                                             ?>
                                         </td>
                                         <td>
                                         <?php
-                                            if (!$result['status']){
+                                            if ($result['status'] == 0){
                                         ?>
-                                            <a href=">cartId" onclick="return confirm('Are you want to delete');">
-                                                <?php echo "Xóa" ;?>
-                                            </a>
-                                        <?php
+                                            N/A 
+                                            <?php
+                                            } elseif($result['status'] == 1){
+                                                $id = $result['id'];
+                                                $price = $result['price'];
+                                                $quantity = $result['quantity'];
+                                                $time=$result['date'];
+                                                echo "<a href='?confirmId=$customerId&price=".$price."&time=$time'>Shifted</a>";
                                             } else{
-                                                echo "N/A";
+                                        ?>
+                                            <p>Received</p>
+                                        <?php
                                             }
                                         ?>
                                         </td>

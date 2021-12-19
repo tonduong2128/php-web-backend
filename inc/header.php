@@ -115,6 +115,7 @@
 		<?php		 
 		 } 
 	  	?>
+	  <li><a href="compare.php">Compare</a> </li>
 	  <li><a href="contact.php">Contact</a> </li>
 	  <div class="clear"></div>
 	</ul>

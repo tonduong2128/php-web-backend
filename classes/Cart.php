@@ -132,5 +132,44 @@
             $result = $this->db->select($query);
             return $result;
         } 
+        public function shifted($shiftId, $time, $price)
+        {
+            $id = mysqli_real_escape_string($this->db->link, $shiftId);
+            $time =  mysqli_real_escape_string($this->db->link, $time);
+            $price =  mysqli_real_escape_string($this->db->link, $price);
+            $query = "UPDATE tbl_order SET status = 1 WHERE id=$id AND date='$time' AND price='$price'";
+            $result = $this->db->update($query);
+            if ($result){
+                return "<p class='error' style='font-size:20px; color: green';>Update order sussesful</p>";
+            } {
+                return "<p class='sussess' style='font-size:20px; color: red;'>Update order not sussesful</p>";
+            } 
+        }
+        public function delShifted($shiftId, $time, $price)
+        {
+            $id = mysqli_real_escape_string($this->db->link, $shiftId);
+            $time =  mysqli_real_escape_string($this->db->link, $time);
+            $price =  mysqli_real_escape_string($this->db->link, $price);
+            $query = "DELETE FROM tbl_order WHERE id=$id AND date='$time' AND price='$price'";
+            $result = $this->db->delete($query);
+            if ($result){
+                return "<p class='error' style='font-size:20px; color: green';>Result order sussesful</p>";
+            } {
+                return "<p class='sussess' style='font-size:20px; color: red;'>Result order not sussesful</p>";
+            }
+        }
+        public function shiftedConfirm($customerId, $time, $price)
+        {
+            $customerId = mysqli_real_escape_string($this->db->link, $customerId);
+            $time =  mysqli_real_escape_string($this->db->link, $time);
+            $price =  mysqli_real_escape_string($this->db->link, $price);
+            $query = "UPDATE tbl_order SET status = 2 WHERE customerId=$customerId AND date='$time' AND price='$price'";
+            $result = $this->db->update($query);
+            if ($result){
+                return "<p class='error' style='font-size:20px; color: green';>Confirm order sussesful</p>";
+            } {
+                return "<p class='sussess' style='font-size:20px; color: red;'>Confirm order not sussesful</p>";
+            } 
+        }
     }
 ?>

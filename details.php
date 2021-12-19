@@ -55,6 +55,11 @@
 								<input type="submit" class="buysubmit" name="submit" value="Buy Now"/>
 							</form>				
 						</div>
+						<div class="add-cart">
+							<a href="?wishlist=<?php echo $result['productId']?>" class="buysubmit">Save to wishlist </a>	
+							<span style="padding-left:4px;"></span>			
+							<a href="?compare=<?php echo $result['productId']?>" class="buysubmit">Compare product </a>				
+						</div>
 		</div>
 		<div class="product-desc">
 			<h2>Product Details</h2>
@@ -65,7 +70,7 @@
 					echo "<script> window.location = '404.php'</script>";
 				}
 			} else{
-				header("Location:cart.php");
+				// header("Location:cart.php");
 			}
 		?>		
 	</div>
