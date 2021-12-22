@@ -2,7 +2,16 @@
 	include_once './inc/header.php';
 	// include './inc/slider.php';
 ?>
-
+<?php
+	if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['compare'])){
+		$productId = $_POST["productId"];
+		$insertCompare = $product->insertCompare($productId, $customerId);
+	}
+	if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['wishlist'])){
+		$productId = $_POST["productId"];
+		$insertWishlist = $product->insertWishlist($productId, $customerId);
+	}
+?>
  <div class="main">
     <div class="content">
 		<?php
@@ -55,11 +64,39 @@
 								<input type="submit" class="buysubmit" name="submit" value="Buy Now"/>
 							</form>				
 						</div>
-						<div class="add-cart">
-							<a href="?wishlist=<?php echo $result['productId']?>" class="buysubmit">Save to wishlist </a>	
-							<span style="padding-left:4px;"></span>			
-							<a href="?compare=<?php echo $result['productId']?>" class="buysubmit">Compare product </a>				
-						</div>
+						<?php
+							$login_check = Session::get('customer_login');
+							if ($login_check){
+						?>
+							<div style="display: flex;">
+								<div class="add-cart">
+									<form action="" method="POST">
+										<input type="hidden" class="buysubmit" name="productId" value="<?php echo $result["productId"];?>"/>				
+										<input type="submit" class="buysubmit" name="compare" value="Compare product"/>				
+									</form>
+									<?php
+										if (isset($insertCompare)){
+											echo $insertCompare;
+										}
+									?>
+								</div>
+								<div style="padding:6px"></div>
+								<div class="add-cart">
+									<form action="" method="POST">
+										<input type="hidden" class="buysubmit" name="productId" value="<?php echo $result["productId"];?>"/>				
+										<input type="submit" class="buysubmit" name="wishlist" value="Save to wishlist"/>				
+									</form>
+									<?php
+										if (isset($insertWishlist)){
+											echo $insertWishlist;
+										}
+									?>
+								</div>
+							</div>
+						<?php			 
+							} 
+						?>
+						
 		</div>
 		<div class="product-desc">
 			<h2>Product Details</h2>

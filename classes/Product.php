@@ -157,6 +157,88 @@
             $query = "SELECT * FROM tbl_product WHERE brandId=4 order by productId  desc LIMIT 1";
             $result=$this->db->select($query);
             return $result;
-        } 
+        }
+        
+        public function insertCompare($productId, $customerId)
+        {
+            $productId = mysqli_real_escape_string($this->db->link,$productId);
+            $customerId = mysqli_real_escape_string($this->db->link,$customerId);
+            
+            $query = "SELECT * FROM tbl_compare WHERE productId='$productId' AND customerId='$customerId'";
+            $result = $this->db->select($query);
+            if ($result){
+                return "<p class='error'>Added compare already </p>";
+            }
+
+            $query = "SELECT * FROM tbl_product WHERE productId='$productId'";
+            $result = $this->db->select($query)->fetch_assoc();
+
+            $productName = $result["productName"];
+            $price = $result["price"];
+            $image = $result["image"];
+
+            $queryCompare = "INSERT INTO tbl_compare (productId, customerId, productName, price, image) 
+                VALUES ($productId, $customerId, '$productName', '$price', '$image')";
+            $insertCompare = $this->db->insert($queryCompare);
+
+            if ($insertCompare) {
+                return "<p class='success'>Added compare success</p>";
+            } else{
+                return "<p class='error'>Added compare not success </p>";
+            };
+        }
+        public function getCompare($customerId)
+        {
+            $query = "SELECT * FROM tbl_compare WHERE customerId='$customerId'";
+            $result=$this->db->select($query);
+            return $result;
+        }
+        public function delAllCompare($customerId)
+        {
+            $query = "DELETE FROM tbl_compare WHERE customerId='$customerId'";
+            $result=$this->db->delete($query);
+            return $result;
+        }
+
+        public function insertWishlist($productId, $customerId)
+        {
+            $productId = mysqli_real_escape_string($this->db->link,$productId);
+            $customerId = mysqli_real_escape_string($this->db->link,$customerId);
+            
+            $query = "SELECT * FROM tbl_wishlist WHERE productId='$productId' AND customerId='$customerId'";
+            $result = $this->db->select($query);
+            if ($result){
+                return "<p class='error'>Added compare already </p>";
+            }
+
+            $query = "SELECT * FROM tbl_product WHERE productId='$productId'";
+            $result = $this->db->select($query)->fetch_assoc();
+
+            $productName = $result["productName"];
+            $price = $result["price"];
+            $image = $result["image"];
+
+            $queryCompare = "INSERT INTO tbl_wishlist (productId, customerId, productName, price, image) 
+                VALUES ($productId, $customerId, '$productName', '$price', '$image')";
+            $insertCompare = $this->db->insert($queryCompare);
+
+            if ($insertCompare) {
+                return "<p class='success'>Added wishlist success</p>";
+            } else{
+                return "<p class='error'>Added wishlist not success </p>";
+            };
+        }
+        public function getWishlist($customerId)
+        {
+            $query = "SELECT * FROM tbl_wishlist WHERE customerId='$customerId'";
+            $result=$this->db->select($query);
+            return $result;
+        }
+        public function delWishlist($productId, $customerId)
+        {
+            $query = "DELETE FROM tbl_wishlist WHERE customerId='$customerId' AND productId='$productId' ";
+            $result=$this->db->delete($query);
+            return $result;
+        }
     }
 ?>

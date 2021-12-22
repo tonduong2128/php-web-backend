@@ -76,6 +76,7 @@
 					}
 					if (isset($_GET['customerId'])){
 						$delCart = $cart->delAllCart();
+						$delCompare = $product->delAllCompare($_GET['customerId']);
 						Session::destroy();
 					}
 				?>
@@ -103,6 +104,8 @@
 	 	if ($login_check){
 		?>
 			<li><a href="profile.php">Profile</a> </li>
+			<li><a href="compare.php">Compare</a> </li>
+			<li><a href="wishlist.php">Wishlist</a> </li>
 		<?php		 
 		 } 
 	  ?>
@@ -115,7 +118,6 @@
 		<?php		 
 		 } 
 	  	?>
-	  <li><a href="compare.php">Compare</a> </li>
 	  <li><a href="contact.php">Contact</a> </li>
 	  <div class="clear"></div>
 	</ul>

@@ -45,4 +45,19 @@ Bài 23 : Lập trình Website PHP mô hình MVC
 48 :Lập trình Website PHP mô hình MVC - Xử lý thông tin đơn hàng đã đặt#2
 49 :Lập trình Website PHP mô hình MVC - Xử lý thông tin đơn hàng đã đặt#3
 50 :Lập trình Website PHP mô hình MVC - So sánh sản phẩm
-    no
+51 :Lập trình Website PHP mô hình MVC - So sánh sản phẩm#2
+52 :Lập trình Website PHP mô hình MVC - So sánh sản phẩm#3
+53 :Lập trình Website PHP mô hình MVC - Sản phẩm yêu thích
+54 :Lập trình Website PHP mô hình MVC - Sản phẩm yêu thích#2
+55 :Lập trình Website PHP mô hình MVC - Sản phẩm yêu thích#3
+56 :Lập trình Website PHP mô hình MVC - Bảo mật thư mục website
+    Khi người dùng biết được đường dẫn gõ vào các thư mục như ảnh, ...
+    1. tạo file 
+        .htaccess
+        nội dung: deny from all
+    2. tạo file index.html
+        window.location = "./";
+        như nó có thể tắt javascript của trang web 
+        và khi nó vào thẳng trang thì không được
+57 :Lập trình Website PHP mô hình MVC - Format tiền tệ trong website PHP
+    No  
