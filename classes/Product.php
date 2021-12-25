@@ -116,14 +116,88 @@
                 }
             }
         }
-        public function deleteProductById($id){
+        public function deleteProductById($id, $image){
             $id = (int)$id;
             $query = "DELETE FROM tbl_product WHERE productId = $id";
             $result = $this->db->delete($query);
             if ($result) {
+                unlink('uploads/'.$image);
                 return "<p class='success'>Delete product success</p>";
             } else{
                 return "<p class='error'> Product id not match </p>";
+            }
+        }
+        public function insertSlider($data, $files)
+        {
+            $silderName = mysqli_real_escape_string($this->db->link, $data["sliderName"]);
+            $type = mysqli_real_escape_string($this->db->link, $data["type"]);
+
+            //kiểm tra hình ảnh và lưu vào folder upload
+            $perimited = array('jpg','jpeg','png','gif');
+            $file_name = $files['image']['name'];
+            $file_size = $files['image']['size'];
+            $file_temp = $files['image']['tmp_name'];
+
+            $div = explode('.',$file_name);
+            $file_ext = strtolower(end($div));
+            $unique_image = substr(md5(time()), 0, 10).'.'.$file_ext;
+            $uploaded_image="uploads/".$unique_image;
+
+            if ($silderName == "" || $type == ""|| $file_name="") {
+                $alert = "<span class='error'> Fields must be not empty </span>";
+                return $alert;
+            } else{
+                // upload hình ảnh vào folder uploads
+                move_uploaded_file($file_temp,$uploaded_image);
+                $query = "INSERT INTO tbl_slider(sliderName, image, type) 
+                    VALUES('$silderName', '$unique_image', '$type')";
+                $result=$this->db->insert($query);
+                if ($result){
+                    $alert = "<span class='success'>Insert slider Successfully</span>";
+                    return $alert;
+                } else{
+                    $alert = "<span class='error'>Insert slider Not Successfully</span>";
+                    return $alert;
+                }
+            }
+        }
+        public function showSlider()
+        {
+            $query = "SELECT * FROM tbl_slider WHERE type=1 order by id desc ";
+            $result=$this->db->select($query);
+            return $result;   
+        }
+        public function showSliderAdmin()
+        {
+            $query = "SELECT * FROM tbl_slider order by id desc ";
+            $result=$this->db->select($query);
+            return $result;   
+        }
+        public function deleteSliderById($sliderId, $image)
+        {
+            $query = "DELETE FROM tbl_slider WHERE id=$sliderId";
+            $result = $this->db->delete($query);
+            if ($result){
+                unlink('uploads/'.$image);
+            }
+            if ($result){
+                $alert = "<span class='success'>Delete slider Successfully</span>";
+                return $alert;
+            } else{
+                $alert = "<span class='error'>Delete slider Not Successfully</span>";
+                return $alert;
+            }
+        }
+        public function updateTypeSlider($id, $type)
+        {
+            $query ="UPDATE tbl_slider SET type='$type' WHERE id=$id";
+            $result = $this->db->update($query);
+            if ($result){
+                $alert = "<span class='success'>Change type slider Successfully</span>";
+                return $alert;
+            } else{
+                $alert = "<span class='error'>Change type slider Not Successfully</span>";
+                return $alert;
             }
         }
 
@@ -134,7 +208,20 @@
             return $result; 
         }
         public function getProductNew(){
-            $query = "SELECT * FROM tbl_product order by productId desc LIMIT 4";
+            $quantityEachPage = 4;
+            if (!isset($_GET['page'])){
+                $page=1;
+            } else{
+                $page = $_GET["page"];
+            }
+            $quantity = $quantityEachPage*$page;
+            $start = ($page - 1)*$quantityEachPage;
+            $query = "SELECT * FROM tbl_product order by productId desc LIMIT $start,$quantityEachPage";
+            $result=$this->db->select($query);
+            return $result;
+        }
+        public function getAllProduct(){
+            $query = "SELECT * FROM tbl_product order by productId desc";
             $result=$this->db->select($query);
             return $result;
         }
@@ -238,6 +325,15 @@
         {
             $query = "DELETE FROM tbl_wishlist WHERE customerId='$customerId' AND productId='$productId' ";
             $result=$this->db->delete($query);
+            return $result;
+        }
+
+
+        public function searchProdct($search)
+        {
+            $search = $this->fm->validation($search);
+            $query = "SELECT * FROM tbl_product WHERE productName LIKE '%$search%' ";
+            $result = $this->db->select($query);
             return $result;
         }
     }

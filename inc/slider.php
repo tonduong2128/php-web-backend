@@ -100,10 +100,20 @@
 			<section class="slider">
 				  <div class="flexslider">
 					<ul class="slides">
-						<li><img src="shop/images/1.jpg" alt=""/></li>
-						<li><img src="shop/images/2.jpg" alt=""/></li>
-						<li><img src="shop/images/3.jpg" alt=""/></li>
-						<li><img src="shop/images/4.jpg" alt=""/></li>
+						<?php
+							$showSlider = $product->showSlider();
+							if ($showSlider){
+								while ($result = $showSlider->fetch_assoc()){
+						?>
+							<li>
+								<img src="shop/admin/uploads/<?php echo $result["image"];?>" 
+								alt="" style="max-height:310px; max-width:540; object-fit:cover;"/>
+							</li>
+						<?php
+									
+								}
+							} 
+						?>
 				    </ul>
 				  </div>
 			</section>

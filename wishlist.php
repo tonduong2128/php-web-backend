@@ -39,7 +39,7 @@
 										<td><?php echo $id; ?></td>
 										<td><?php echo $result["productName"]?></td>
 										<td><img  src="./shop/admin/uploads/<?php echo $result["image"];?>" alt=""/></td>
-										<td><?php echo $result["price"]." VND"?></td>
+										<td><?php echo $format->currency($result["price"])." VND" ; ?></td>
 										<td>
 											<a href="?productId=<?php echo $result["productId"];?>">Remove</a> ||
 											<a href="details.php?productId=<?php echo $result["productId"];?>">Buy now</a>

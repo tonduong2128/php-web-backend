@@ -11,6 +11,9 @@
 		$productId = $_POST["productId"];
 		$insertWishlist = $product->insertWishlist($productId, $customerId);
 	}
+	if ($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['addComment'])){
+		$insertComment = $customer->insertComment($_POST);
+	}
 ?>
  <div class="main">
     <div class="content">
@@ -36,7 +39,7 @@
 							<h2><?php echo $result["productName"]; ?></h2>
 							<p><?php echo $format->textShorten($result["product_desc"],150) ;?></p>					
 							<div class="price">
-								<p>Price: <span><?php echo $result["price"]." VND" ; ?></span></p>
+								<p>Price: <span><?php echo $format->currency($result["price"])." VND" ; ?></span></p>
 								<p>Category: <span>
 									<?php
 										$cat = $category->getCategoryById($result["catId"]);
@@ -132,9 +135,27 @@
     	
  				</div>
  		</div>
+		 <div class="comment">
+			<div class="row">
+				<div class="col-md-8">
+					<h5>Comment for product</h5>
+					<?php
+						if (isset($insertComment)){
+							echo $insertComment;
+						}
+					?>
+					<form action="" method="post">
+						<input type="hidden" name="productId" value="<?php echo $_GET["productId"];?>">
+						<input type="text" class="form-control" name="username" placeholder="User name" style="display:block;">
+						<textarea placeholder="Add comment" name="comment" cols="30" rows="3" style="margin:10px 0; display:block;" class="form-control" >
+						</textarea>
+						<input type="submit"  class="btn btn-default" name="addComment" value="Add comment" placeholder="User name">
+					</form>
+				</div>
+			</div>
+		 </div>
  	</div>
 </div>
-  
 <?php
 	include_once './inc/footer.php';
-x?>
+?>

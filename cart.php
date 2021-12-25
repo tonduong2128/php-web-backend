@@ -50,14 +50,14 @@
 									<tr>
 										<td><?php echo $result["productName"]?></td>
 										<td><img  src="./shop/admin/uploads/<?php echo $result["image"];?>" alt=""/></td>
-										<td><?php echo $result["price"]." VND"?></td>
+										<td><?php echo $format->currency($result["price"])." VND" ; ?></td>
 										<td>
 											<form action="?productId=<?php echo $result["productId"]; ?>" method="post">
 												<input type="number" min="1" name="quantity" value="<?php echo $result["quantity"];?>"/>
 												<input type="submit" name="submit" value="Update"/>
 											</form>
 										</td>
-										<td><?php echo ((int)$result["price"])*((int)$result["quantity"])." VND"?></td>
+										<td><?php echo $format->currency(((int)$result["price"])*((int)$result["quantity"]))." VND" ; ?></td>
 										<td><a href="?cartDelId=<?php echo$result["cartId"];?>" onclick ='return confirm("You want to delete")'> X</a></td>
 									</tr>
 									<?php
@@ -71,7 +71,7 @@
 							<tr>
 								<th>Sub Total : </th>
 								<td>
-									<?php echo ($totalPrice)." VND";
+									<?php echo $format->currency($totalPrice)." VND" ;
 										Session::set("sum", $totalPrice);
 									?>
 								</td>
@@ -82,7 +82,7 @@
 							</tr>
 							<tr>
 								<th>Grand Total :</th>
-								<td><?php echo ($totalPrice*1.1)." VND"?></td>
+								<td><?php echo $format->currency($totalPrice*1.1)." VND"?></td>
 							</tr>
 					</table>	
 			</div>

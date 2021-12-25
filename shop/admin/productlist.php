@@ -10,7 +10,8 @@
 
 	if (isset($_GET["productDelId"]) && $_GET["productDelId"]!=null){
 		$idDel = $_GET["productDelId"];
-		$resultDel = $product->deleteProductById($idDel);
+		$image = $_GET["image"];
+		$resultDel = $product->deleteProductById($idDel, $image);
 	}
 ?>
 <div class="grid_10">
@@ -83,7 +84,7 @@
 						<td>
 							<a href="productEdit.php?productId=<?php echo $data["productId"]; ?>">Edit</a> 
 							|| <a 
-									href="?productDelId=<?php echo $data["productId"]?>" 
+									href="?productDelId=<?php echo $data["productId"]?>&image=<?php echo $data["image"];?>" 
 									onclick=" return confirm('You must be delete')">Delete
 								</a>
 						</td>

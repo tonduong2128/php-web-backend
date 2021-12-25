@@ -65,7 +65,7 @@
                                         <td><?php echo $i?></td>
                                         <td><?php echo $result["productName"]?></td>
                                         <td><img src="./shop/admin/uploads/<?php echo $result["image"];?>" alt=""></td>
-                                        <td><?php echo $result["price"]." VND"?></td>
+                                        <td><?php echo $format->currency($result["price"])." VND" ; ?></td>
                                         <td>
                                             <?php echo $result["quantity"];?>   
                                         </td>

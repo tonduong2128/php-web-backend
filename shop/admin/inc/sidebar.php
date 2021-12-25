@@ -22,7 +22,12 @@
                         <li><a href="brandlist.php">List brands</a></li>                        
                     </ul>
                 </li>
-                
+                <li><a class="menuitem">Slider</a>
+                    <ul class="submenu">
+                        <li><a href="sliderAdd.php">Add slider</a></li>
+                        <li><a href="sliderList.php">List slider</a></li>                        
+                    </ul>
+                </li>
                  <li><a class="menuitem">Update Pages</a>
                     <ul class="submenu">
                         <li><a>About Us</a></li>

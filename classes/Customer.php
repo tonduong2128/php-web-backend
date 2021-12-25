@@ -87,5 +87,23 @@
             $result = $this->db->update($query);
             return $result;
         }
+        public function insertComment($data)
+        {   
+            $username = trim($data["username"]  );
+            $comment = trim($data["comment"]);
+            $productId = $data["productId"];
+            if ($username!="" && $comment!="" && $productId!=""){
+                $query = "INSERT INTO tbl_comment(username, comment, productId) VALUES('$username', '$comment', '$productId')";
+                $result = $this->db->insert($query);
+                if ($result){
+                    return "<div class='sucess'>Add comment sucess</div>";
+                } else{
+                    return "<div class='error'>Add comment not sucess</div>";
+                }
+            }
+            else{
+                return "<div class='error'>Field must be not empty</div>";
+            }
+        }
     }
 ?>

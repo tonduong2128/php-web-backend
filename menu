@@ -60,4 +60,13 @@ Bài 23 : Lập trình Website PHP mô hình MVC
         như nó có thể tắt javascript của trang web 
         và khi nó vào thẳng trang thì không được
 57 :Lập trình Website PHP mô hình MVC - Format tiền tệ trong website PHP
-    No  
+58 :Lập trình Website PHP mô hình MVC - Slider trong PHP
+61 : Share source web bán hàng PHP OOP MVC
+    $query = "SELECT * SELECT tbl_product WHERE productName LIKE '%$search%'";
+    tìm kiếm trong mySql
+62 :Lập trình Website PHP mô hình MVC - Phân Trang đơn giản
+    $query = "SELECT * FROM tbl_product order by productId desc LIMIT batDau, soluong";
+63 : Lập trình website PHP mô hình MVC - Bình luận
+64 : Lập trình Website PHP mô hình MVC - Share lại code hoàn chỉnh
+Lập trình Website PHP mô hình MVC - Nối Các Bảng trong Database
+*****
